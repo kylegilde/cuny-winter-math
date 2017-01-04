@@ -18,13 +18,13 @@ knitr::opts_chunk$set(echo=FALSE,
                       dev.args=list(type="cairo"))
 ```
 
-```{r Load Packages}
+```{r Load Packages, include=FALSE}
 require(Deriv)
 require(rootSolve)
 require(Ryacas)
 rm(list = ls())
 yacas("PrettyPrinter'Set()") #demo("Ryacas-PrettyPrinter") 
-
+#vignette("Ryacas")
 
 
 ```
@@ -210,28 +210,45 @@ cat("November", round(uniroot.all(fx.prime, c(1, 30))))
 
 ###19. 	Use the Second Derivative Test to find all local extrema, if the test applies.  Otherwise, use the First Derivative Test.  Write any local extrema as an ordered pair. f(x)  = 7x^2  + 28x - 35
 ```{r 19}
+second_deriv_test <- function(fx, f_dbl_prime, crit_value) 
+{
+    for (i in 1:length(crit_value))
+    {
+        if (f_dbl_prime(crit_value[i]) < 0)
+        {
+            print("Local Max:")
+            print(c(crit_value[i], fx(crit_value[i])))
+            } else if (f_dbl_prime(crit_value[i]) > 0)
+        {
+            print("Local Min:")
+            print(c(crit_value[i], fx(crit_value[i])))
+        } else
+        {
+            print("Unknown")
+        }
+    }
+}
+
 fx <- function(x)  7*x^2  + 28*x - 35
 fx.prime <- Deriv(fx)
 fx.dbl_prime <- Deriv(fx.prime)
+critical_points <- uniroot.all(fx.prime, c(-100,100))
+second_deriv_test(fx, fx.dbl_prime, critical_points)
 
 # curve(fx, -10, 10)
 # curve(fx.prime, -10, 10)
-cp <- uniroot.all(fx.prime, c(-10,10))
-cat("2nd Derivative Test:", fx.dbl_prime(cp))
-cat("local min: (", cp, ",", fx(cp), ")")
 ```
 
 ###20. 	Use the Second Derivative Test to find all local extrema, if the test applies.  Otherwise, use the First Derivative Test.  Write any local extrema as an ordered pair. f(x)  = -6x^3  + 27x^2  + 180x
 ```{r 20}
-fx <- function(x)  6*x^3  + 27*x^2  + 180*x
+fx <- function(x)  -6*x^3  + 27*x^2  + 180*x
 fx.prime <- Deriv(fx)
 fx.dbl_prime <- Deriv(fx.prime)
+critical_points <- as.vector(uniroot.all(fx.prime, c(-100,100)))
+second_deriv_test(fx, fx.dbl_prime, critical_points)
 
- curve(fx, -10, 10)
- curve(fx.prime, -10, 10)
-cp <- uniroot.all(fx.prime, c(-10,10))
-cat("2nd Derivative Test:", fx.dbl_prime(cp))
-cat("local min: (", cp, ",", fx(cp), ")")
+# curve(fx, -10, 10)
+# curve(fx.prime, -10, 10)
 ```
 
 ###21. 	A beauty supply store expects to sell 120 flat irons during the next year.  It costs $1.60 to store one flat iron for one year.  To reorder, there is a fixed cost of $6 , plus $4.50  for each flat iron ordered.  In what lot size and how many times per year should an order be placed to minimize inventory costs? 
@@ -240,7 +257,8 @@ total_cost <- function(orders_per_year) {
     120/orders_per_year * 1.6   + orders_per_year * (6 + 4.5 * 120/orders_per_year) 
 }
 total_cost.prime <- Deriv(total_cost)
-total_cost.prime
+total_cost
+#total_cost.prime
 # curve(total_cost,1,120)
 # curve(total_cost.prime, 1, 120)
 orders_per_year <- round(uniroot.all(total_cost.prime, c(1, 120)))
@@ -275,8 +293,8 @@ zhh <- function(h) 294912/h^3
 zhL <- 6
 
 D <- function(zxx, zxy, zyy, zyx) zxx * zyy - zxy * zyx
-D(zhh(crit[1]), zhL, zLL(crit[2]), zLh) #108 > 0 so we have a max or min
-zhh(crit[1]) # 9.000008 is greater than 0 so we have a local min
+# D(zhh(crit[1]), zhL, zLL(crit[2]), zLh) #108 > 0 so we have a max or min
+# zhh(crit[1]) # 9.000008 is greater than 0 so we have a local min
 
 dims <- round(c(crit[1], crit[2], width(crit[1], crit[2]))) #dims
 dims
@@ -299,7 +317,7 @@ r <- -((37000/67000)^(1/7) - 1)
 ```{r 25}
 dem <- function(x) 23.2 - 0.4*x
 rev <- function(x) x * dem(x)
-#curve(rev, 1, 100)
+# curve(rev, 1, 100)
 
 rev.prime <- Deriv(rev)
 uniroot(rev.prime, c(0, 100))$root
@@ -312,12 +330,24 @@ round(400*(1 + r)^22,2) #?
 ```
 ###27. 	A manufacturer has determined that the marginal profit from the production and sale of x  clock radios is approximately 380 - 4x dollars per clock radio.   
 + Step 1. Find the profit function if the profit from the production and sale of 38  clock radios is $1700. 
+```{r 27.1}
+marginal_profit <- function(x) 380 - 4*x
+C <- -(-1700 +380 * 38 -2 * 38^2)
+profit <- function(x) -9852 + 380 * x - 2 * x^2
+profit
+```
 
 + Step 2. What is the profit from the sale of 56 clock radios? 
+```{r}
+profit(56)
+```
 
 28. 	Use integration by substitution to solve the integral below.
 	
 ∫▒├ (-5(lna(y) )^3)/y┤dy
+```{r}
+
+```
 
  
 
