@@ -23,20 +23,28 @@ knitr::opts_chunk$set(echo=FALSE,
 require(Deriv)
 require(rootSolve)
 require(Ryacas)
+#require(mosaic)
 rm(list = ls())
 yacas("PrettyPrinter'Set()") #demo("Ryacas-PrettyPrinter")  #vignette("Ryacas")
 ```
-
+<style>
+div.beige pre { background-color:beige; }
+</style>
+ <div class = "beige">
 
 #Calculus & Linear Algebra
 ##Calculus
+
 ####1. 	It costs a toy retailer $10 to purchase a certain doll.  He estimates that, if he charges x dollars per doll, he can sell 80 - 2x  dolls per week.  Find a function for his weekly profit. 
 
- 
 ```{r #1}
 # P = Q(R-C)
 profit <- function(x) (80 - 2 * x) * (x - 10)
-print(profit)
+x <- Sym("x") # define x as a symbolic variable
+profit(x)
+print("Simplify & Pretty Form") 
+PrettyForm(Simplify("%"))
+
 ```
 
 ####2. 	Given the following function: f (x)  = 8x^3  + 7x^2  - 5
@@ -64,11 +72,11 @@ PrettyForm(Simplify("%"))
 ```
 ####3. 	Use the graph to find the indicated limits.  If there is no limit, state "Does not exist".  
 
-+ Step 1. Find ã€–limã€—â”¬(ã€–xâ†’1ã€—^- )aâ”œ  f (x)â”¤ .**2**
++ Step 1. Find $$€–lim€—”¬(€–x†’1€—^- )”œ  f (x)”¤ $$. **2**
 
-+ Step 2. Find ã€–limã€—â”¬(ã€–xâ†’1ã€—^+ )aâ”œ  f (x)â”¤.  **-5**
++ Step 2. Find $$€–lim€—”¬(€–x†’1€—^+ )”œ  f (x)”¤$$.  **-5**
 
-+ Step 3. Find ã€–limã€—â”¬(xâ†’1)aâ”œ  f (x)â”¤. **Does not exist**
++ Step 3. Find $$€–lim€—”¬(x†’1)”œ  f (x)”¤$$. **Does not exist**
 
 ####4. 	Find the derivative for the following function. f (x)  = -2x^3
 ```{r}
@@ -128,7 +136,6 @@ fx.prime <- Deriv(fx)
 fx.prime(x)
 #fx.p2 <- function(x) -4/3*(3 * x^-3 - 8 * x + 6)^(1/3)*(9 * x^-4+8)
 #cbind(fx.prime(t), fx.p2(t))
-
 ```
 **(-4/3) * (3 * x^-3 - 8 * x + 6)^(1/3) * (9 * x^-4+8)**
 
@@ -149,14 +156,14 @@ round(ft(3))
 
 ```
 
-+ Step 2. Determine  N Â´(5) and interpret its meaning.  Round your answer to the nearest whole number.  
++ Step 2. Determine  $$N´(5)$$ and interpret its meaning.  Round your answer to the nearest whole number.  
 ```{r 14.2}
 ft.prime <- Deriv(ft)
 round(ft.prime(5))
 ```
 **The attendance is increasing at a rate of 20 people during week 5.**
 
-##15. 	Consider the following function:  3x^3  + 4y^3  = 77
+####15. 	Consider the following function:  3x^3  + 4y^3  = 77
 
 + Step 1. Use implicit differentiation to find dy/dx.  
 ```{r #15.1}
@@ -173,13 +180,12 @@ y.prime(3, -1)
 ```{r #16}
 fx  <- function(x) (x + 3)/(x - 8)
 fx.prime <- Deriv(fx)
-# s <- seq(4, 12, by = .01)
-# plot(fx(s))
-# curve(fx, 4, 12)
-# curve(fx.prime, 4, 12)
-# uniroot.all(fx.prime,c(-10, 10))
+# s <- seq(4, 12, by = .001)
+# plot(s, fx(s), type = 'l')
+#plot(fx.prime(s))
+#uniroot.all(fx.prime,c(-10, 10))
 ```
-**never decreasing; increasing on on (-Inf, 8) and (8, Inf)**
+**never increasing; decreasing on on (-Inf, 8) and (8, Inf)**
 
 ####17. 	A frozen pizza is placed in the oven at t = 0.  The function F(t)  = 14 +  (367t^2)/(t^2  + 100)  approximates the temperature (in degrees Fahrenheit) of the pizza at time t. 
 
@@ -260,7 +266,7 @@ total_cost
 # curve(total_cost,1,120)
 # curve(total_cost.prime, 1, 120)
 orders_per_year <- round(uniroot.all(total_cost.prime, c(1, 120)))
-cat(orders_per_year, " lots of ", 120/orders_per_year)
+cat(orders_per_year, " orders of ", 120/orders_per_year, "each")
 ```
 ####22. 	A shipping company must design a closed rectangular shipping crate with a square base.  The volume is 18432 ft^3.  The material for the top and sides costs $3 per square foot and the material for the bottom costs $5 per square foot.  Find the dimensions of the crate that will minimize the total cost of material. 
 ```{r 22}
@@ -340,12 +346,16 @@ profit
 profit(56)
 ```
 
-####28. 	Use integration by substitution to solve the integral below.
-	
-âˆ«â–’â”œ (-5(lna(y) )^3)/yâ”¤dy
+####28. 	Use integration by substitution to solve the integral below. 
+$$ˆ«–’”œ (-5(ln(y) )^3)/y*dy$$  
 ```{r}
-
+f.prime <- function(y)(-5 * (log(y))^3) / y
+# curve(f.prime, -100, 100)
+# antiD((-5*(log(y))^3)/y~y)
+# yacas(Integrate((-5 * (log(y))^3)/y, y))
 ```
+-1.25*(ln(y))^4 + C
+
 ####29. 	It was discovered that after t years a certain population of wild animals will increase at a rate of P'(t)  = 75 - 9t^(1/2) animals per year.  Find the increase in the population during the first 9 years after the rate was discovered.  Round your answer to the nearest whole animal. 
 ```{r}
 p.prime <- function(t) 75 - 9*t^.5
@@ -362,6 +372,7 @@ lines(s,fx2(s),col="green",type = "l")
 integrate(Vectorize(fx2),0,1)$value - integrate(Vectorize(fx),0,1)$value
 ```
 ####31. 	Solve the differential equation given below. dy/dx  = x^3 * y
+**y = exp(x^4/4) + C**
 
 ####32. 	Use integration by parts to evaluate the definite integral below. âˆ«_(-7)^2â–’â”œ xâˆš( &x + 7) dxâ”¤ Write your answer as a fraction.
 ```{r 32}
@@ -399,6 +410,17 @@ round(distance_calculate(46, 1000000),2)
 
 
 ####34. 	Find the Taylor polynomial of degree 5 near x = 4  for the following function. 	y = 3e^(5x - 3) 
+```{r 34}
+
+x <- Sym("x")
+fx <- function(x) 3 * exp(5 * x - 3)
+# require(pracma) these didn't work
+# taylor(fx,5,4)
+# ?Taylor(fx)
+# yacas("Taylor(fx(x),5,4)")
+
+```
+**3e^17 + 15e^17 (x-4) + 75/2 e^17 (x-4)^2 + 125/2 e^17 (x-4)^3 + 625/8 e^17 (x-4)^4 + 625/8 e^17 (x-4)^5**
 
 ##Linear Algebra
 ####1.  Using matrix operations, describe the solutions for the following family of equations:
@@ -439,3 +461,4 @@ Dz <- det(cbind(q[,1:2], b))
 c(D,Dx,Dy,Dz)
 solve(q, b)
 ```
+</div>
