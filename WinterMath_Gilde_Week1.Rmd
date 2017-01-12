@@ -39,12 +39,11 @@ div.beige pre { background-color:beige; }
 
 ```{r #1}
 # P = Q(R-C)
-profit <- function(x) (80 - 2 * x) * (x - 10)
+
+#profit <- function(x) (80 - 2 * x) * (x - 10)
+profit <- function(x) -2*x^2 + 100 * x  - 800
 x <- Sym("x") # define x as a symbolic variable
 profit(x)
-print("Simplify & Pretty Form") 
-PrettyForm(Simplify("%"))
-
 ```
 
 ####2. 	Given the following function: f (x)  = 8x^3  + 7x^2  - 5
@@ -412,11 +411,19 @@ round(distance_calculate(46, 1000000),2)
 ####34. 	Find the Taylor polynomial of degree 5 near x = 4  for the following function. 	y = 3e^(5x - 3) 
 ```{r 34}
 
-x <- Sym("x")
+
 fx <- function(x) 3 * exp(5 * x - 3)
-# require(pracma) these didn't work
+
+# fx <- function(x) 4 * x
+# require(pracma) #these didn't work
 # taylor(fx,5,4)
-# ?Taylor(fx)
+# 
+# require(Ryacas)
+# x <- Sym("x")
+# Taylor(fx(x))
+# 
+# require(Ryacas)
+# x <- Sym("x")
 # yacas("Taylor(fx(x),5,4)")
 
 ```
