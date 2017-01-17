@@ -414,17 +414,17 @@ round(distance_calculate(46, 1000000),2)
 
 fx <- function(x) 3 * exp(5 * x - 3)
 
-# fx <- function(x) 4 * x
-# require(pracma) #these didn't work
-# taylor(fx,5,4)
-# 
-# require(Ryacas)
-# x <- Sym("x")
-# Taylor(fx(x))
-# 
-# require(Ryacas)
-# x <- Sym("x")
-# yacas("Taylor(fx(x),5,4)")
+fx <- function(x) 4 * x
+require(pracma) #these didn't work
+taylor(fx,5,4)
+
+require(Ryacas)
+x <- Sym("x")
+Taylor(fx(x), 5, 4)
+
+require(Ryacas)
+x <- Sym("x")
+yacas("Taylor(fx(x),5,4)")
 
 ```
 **3e^17 + 15e^17 (x-4) + 75/2 e^17 (x-4)^2 + 125/2 e^17 (x-4)^3 + 625/8 e^17 (x-4)^4 + 625/8 e^17 (x-4)^5**

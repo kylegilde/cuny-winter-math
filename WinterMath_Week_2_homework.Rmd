@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo=FALSE, 
+knitr::opts_chunk$set(#echo=FALSE, 
                       warning=FALSE, 
                       message=FALSE,
                       #tidy=TRUE,
@@ -165,15 +165,13 @@ nsamp(12, 8, ordered = T)/nsamp(12, 4) #40320
 ####22. 	The newly elected president needs to decide the remaining 7 spots available in the cabinet he/she is appointing.  If there are 13 eligible candidates for these positions (where rank matters), how many different ways can the members of the cabinet be appointed?
 ```{r 22}
 nsamp(13, 7, ordered = T)
- #8648640
 ``` 
 ####23.	In how many ways can the letters in the word 'Population' be arranged?
 ```{r 23}
 word <- "Population"
 letter_vec <- sapply(unlist(strsplit(word, "")), tolower)
 #count(letter_vec)
-nsamp(length(letter_vec), length(letter_vec), ordered = T)/factorial(2)/factorial(2)
-#907200
+nsamp(length(letter_vec), length(letter_vec), ordered = T)/factorial(2)/factorial(2) #907200
 ``` 
 ####24. 	Consider the following data:
 
@@ -220,28 +218,23 @@ EX * 994
 
 + Step 1. Find the expected value of the proposition.  Round your answer to two decimal places. 
 ```{r 26.1}
-round(pbinom(8, 11, .5) * 1 + pbinom(8, 11, .5, lower.tail = F) * -7,2)
-# 0.74
+round(pbinom(8, 11, .5) * 1 + pbinom(8, 11, .5, lower.tail = F) * -7,2) # 0.74
 ```
 + Step 2. If you played this game 615 times how much would you expect to win or lose? (Losses must be entered as negative.) 
 ```{r 26.}
-round(pbinom(8, 11, .5) * 1 + pbinom(8, 11, .5, lower.tail = F) * -7,2) * 615
-# 455.1
+round(pbinom(8, 11, .5) * 1 + pbinom(8, 11, .5, lower.tail = F) * -7,2) * 615 # 455.1
 ```
 ####27. 	If you draw two clubs on two consecutive draws from a standard deck of cards you win $583.  Otherwise you pay me $35.  (Cards drawn without replacement.)
 
 + Step 1. Find the expected value of the proposition.  Round your answer to two decimal places. 
 ```{r 27.1}
-#x = white balls are # of successes you want
-#m = all possible successes (white balls)
-#n = # of non-successes in urn (black balls)
-prob27 <- dhyper(2,13,39,2)
-ev27 <- prob27 * 583 + (1 - prob27) * -35
-round(ev27, 2) # 1.35
+P <- dhyper(2,13,39,2)
+E_X <- P * 583 + (1 - P) * -35
+round(E_X, 2) # 1.35
 ```
 + Step 2. If you played this game 632 times how much would you expect to win or lose? (Losses must be entered as negative.) 
 ```{r 27.2}
-round(ev27, 2) * 632 #853.2 
+round(E_X, 2) * 632 #853.2 
 ```
 ####28. 	A quality control inspector has drawn a sample of 10 light bulbs from a recent production lot.  If the number of defective bulbs is 2 or less, the lot passes inspection.  Suppose 30% of the bulbs in the lot are defective.  What is the probability that the lot will pass inspection? (Round your answer to 3 decimal places)
 ```{r 28}
@@ -265,10 +258,25 @@ round(ppois(1, 2.8), 4) #.2311
 ```
 ####33. 	A town recently dismissed 8 employees in order to meet their new budget reductions.  The town had 6 employees over 50 years of age and 19 under 50.  If the dismissed employees were selected at random, what is the probability that more than 1 employee was over 50?  Write your answer as a fraction or a decimal number rounded to three decimal places.
 ```{r 33}
-round(pbinom(1, 8, 6/25, lower.tail = F), 3) 
+#x, q = white balls are # of successes you want
+#m = all possible successes (white balls)
+#n = # of non-successes in urn (black balls)
+#k = the number of balls drawn from the urn.
+
+q <- 1
+m <- 6
+n <- 19   
+k <- 8
+P <- phyper(q, m, n, k, lower.tail = F)
+round(P, 3)
 ```
 ####34. 	Unknown to a medical researcher, 10 out of  25 patients have a heart problem that will result in death if they receive the test drug.  Eight patients are randomly selected to receive the drug and the rest receive a placebo.  What is the probability that less than 7 patients will die?  Write your answer as a fraction or a decimal number rounded to three decimal places.
 ```{r 34}
-round(pbinom(7, 8, 10/25), 3) #.999
+q <- 6
+m <- 10
+n <- 15 
+k <- 8
+P <- phyper(q, m, n, k)
+round(P, 3)
 ```
 </div>
