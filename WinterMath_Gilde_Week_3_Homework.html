@@ -11,6 +11,7 @@
 
 <meta name="author" content="Kyle Gilde" />
 
+<meta name="date" content="2017-01-16" />
 
 <title>WinterMath Week 3 Homework</title>
 
@@ -118,7 +119,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">WinterMath Week 3 Homework</h1>
 <h4 class="author"><em>Kyle Gilde</em></h4>
-<h4 class="date"><em>January 9, 2017</em></h4>
+<h4 class="date"><em>January 16, 2017</em></h4>
 
 </div>
 
@@ -130,14 +131,42 @@ div.beige pre { background-color:beige; }
 </style>
 <div class="beige">
 <h4 id="the-weights-of-steers-in-a-herd-are-distributed-normally.-the-variance-is-40000-and-the-mean-steer-weight-is-1300-lbs.-find-the-probability-that-the-weight-of-a-randomly-selected-steer-is-greater-than-979-lbs.-round-your-answer-to-4-decimal-places">1. The weights of steers in a herd are distributed normally. The variance is 40,000 and the mean steer weight is 1300 lbs. Find the probability that the weight of a randomly selected steer is greater than 979 lbs. (Round your answer to 4 decimal places)</h4>
+<pre class="r"><code>mu &lt;- 1300
+variance &lt;- 40000
+stdev &lt;- sqrt(variance)
+threshold &lt;- 979
+
+round(pnorm(threshold, mu, stdev, lower.tail = F), 4) </code></pre>
 <pre><code>[1] 0.9458</code></pre>
 <h4 id="svga-monitors-manufactured-by-tsi-electronics-have-life-spans-that-have-a-normal-distribution-with-a-variance-of-1960000-and-a-mean-life-span-of-11000-hours.-if-a-svga-monitor-is-selected-at-random-find-the-probability-that-the-life-span-of-the-monitor-will-be-more-than-8340-hours.-round-your-answer-to-4-decimal-places">2. SVGA monitors manufactured by TSI Electronics have life spans that have a normal distribution with a variance of 1,960,000 and a mean life span of 11,000 hours. If a SVGA monitor is selected at random, find the probability that the life span of the monitor will be more than 8340 hours. (Round your answer to 4 decimal places)</h4>
+<pre class="r"><code>mu &lt;- 11000
+variance &lt;- 1960000
+stdev &lt;- sqrt(variance)
+threshold &lt;- 8340
+
+round(pnorm(threshold, mu, stdev, lower.tail = F), 4)</code></pre>
 <pre><code>[1] 0.9713</code></pre>
 <h4 id="suppose-the-mean-income-of-firms-in-the-industry-for-a-year-is-80-million-dollars-with-a-standard-deviation-of-3-million-dollars.-if-incomes-for-the-industry-are-distributed-normally-what-is-the-probability-that-a-randomly-selected-firm-will-earn-between-83-and-85-million-dollars-round-your-answer-to-4-decimal-places">3. Suppose the mean income of firms in the industry for a year is 80 million dollars with a standard deviation of 3 million dollars. If incomes for the industry are distributed normally, what is the probability that a randomly selected firm will earn between 83 and 85 million dollars? (Round your answer to 4 decimal places)</h4>
+<pre class="r"><code>mu &lt;- 80000000
+stdev &lt;- 3000000
+threshold1 &lt;- 85000000
+threshold2 &lt;- 83000000
+
+round(pnorm(threshold1, mu, stdev) - pnorm(threshold2, mu, stdev), 4)</code></pre>
 <pre><code>[1] 0.1109</code></pre>
 <h4 id="suppose-gre-verbal-scores-are-normally-distributed-with-a-mean-of-456-and-a-standard-deviation-of-123.-a-university-plans-to-offer-tutoring-jobs-to-students-whose-scores-are-in-the-top-14.-what-is-the-minimum-score-required-for-the-job-offer-round-your-answer-to-the-nearest-whole-number-if-necessary.">4. Suppose GRE Verbal scores are normally distributed with a mean of 456 and a standard deviation of 123. A university plans to offer tutoring jobs to students whose scores are in the top 14%. What is the minimum score required for the job offer? Round your answer to the nearest whole number, if necessary.</h4>
+<pre class="r"><code>mu &lt;- 456
+stdev &lt;- 123
+threshold &lt;- .14
+
+round(qnorm(threshold, mu, stdev, lower.tail = F), 0) </code></pre>
 <pre><code>[1] 589</code></pre>
 <h4 id="the-lengths-of-nails-produced-in-a-factory-are-normally-distributed-with-a-mean-of-6.13-centimeters-and-a-standard-deviation-of-0.06-centimeters.-find-the-two-lengths-that-separate-the-top-7-and-the-bottom-7.-these-lengths-could-serve-as-limits-used-to-identify-which-nails-should-be-rejected.-round-your-answer-to-the-nearest-hundredth-if-necessary.">5. The lengths of nails produced in a factory are normally distributed with a mean of 6.13 centimeters and a standard deviation of 0.06 centimeters. Find the two lengths that separate the top 7% and the bottom 7%. These lengths could serve as limits used to identify which nails should be rejected. Round your answer to the nearest hundredth, if necessary.</h4>
+<pre class="r"><code>mu &lt;- 6.13
+stdev &lt;- .06
+threshold &lt;- .07
+
+c(round(qnorm(threshold, mu, stdev), 2), round(qnorm(threshold, mu, stdev, lower.tail = F), 2))</code></pre>
 <pre><code>[1] 6.04 6.22</code></pre>
 <h4 id="an-english-professor-assigns-letter-grades-on-a-test-according-to-the-following-scheme.">6. An English professor assigns letter grades on a test according to the following scheme.</h4>
 <pre><code>A:  Top 13% of scores
@@ -148,23 +177,96 @@ F:  Bottom 9% of scores</code></pre>
 <ul>
 <li>Scores on the test are normally distributed with a mean of 78.8 and a standard deviation of 9.8. Find the numerical limits for a C grade. Round your answers to the nearest whole number, if necessary.</li>
 </ul>
+<pre class="r"><code>mu &lt;- 78.8
+stdev &lt;- 9.8
+threshold1 &lt;- .2
+threshold2 &lt;- .45
+
+round(c(qnorm(threshold1, mu, stdev), qnorm(threshold2, mu, stdev, lower.tail = F)),0)</code></pre>
 <pre><code>[1] 71 80</code></pre>
 <h4 id="suppose-act-composite-scores-are-normally-distributed-with-a-mean-of-21.2-and-a-standard-deviation-of-5.4.-a-university-plans-to-admit-students-whose-scores-are-in-the-top-45.-what-is-the-minimum-score-required-for-admission-round-your-answer-to-the-nearest-tenth-if-necessary.">7. Suppose ACT Composite scores are normally distributed with a mean of 21.2 and a standard deviation of 5.4. A university plans to admit students whose scores are in the top 45%. What is the minimum score required for admission? Round your answer to the nearest tenth, if necessary.</h4>
+<pre class="r"><code>mu &lt;- 21.2
+stdev &lt;- 5.4
+threshold &lt;- .45
+
+round(qnorm(threshold, mu, stdev, lower.tail = F), 1) </code></pre>
 <pre><code>[1] 21.9</code></pre>
 <h4 id="consider-the-probability-that-less-than-11-out-of-151-students-will-not-graduate-on-time.-assume-the-probability-that-a-given-student-will-not-graduate-on-time-is-9.-approximate-the-probability-using-the-normal-distribution.-round-your-answer-to-4-decimal-places.">8. Consider the probability that less than 11 out of 151 students will not graduate on time. Assume the probability that a given student will not graduate on time is 9%. Approximate the probability using the normal distribution. (Round your answer to 4 decimal places.)</h4>
+<pre class="r"><code>successes &lt;- 10
+n &lt;- 151
+P &lt;- .09
+
+round(pbinom(successes, n, P),4)</code></pre>
 <pre><code>[1] 0.192</code></pre>
 <h4 id="the-mean-lifetime-of-a-tire-is-48-months-with-a-standard-deviation-of-7.-if-147-tires-are-sampled-what-is-the-probability-that-the-mean-of-the-sample-would-be-greater-than-48.83-months-round-your-answer-to-4-decimal-places">9. The mean lifetime of a tire is 48 months with a standard deviation of 7. If 147 tires are sampled, what is the probability that the mean of the sample would be greater than 48.83 months? (Round your answer to 4 decimal places)</h4>
+<pre class="r"><code>mu &lt;- 48
+stdev &lt;- 7
+n &lt;- 147
+xbar &lt;- 48.83
+serr &lt;- sem(stdev, n)
+
+round(pnorm(xbar, mu, serr, lower.tail = F), 4)</code></pre>
 <pre><code>[1] 0.0753</code></pre>
 <h4 id="the-quality-control-manager-at-a-computer-manufacturing-company-believes-that-the-mean-life-of-a-computer-is-91-months-with-a-standard-deviation-of-10.-if-he-is-correct-what-is-the-probability-that-the-mean-of-a-sample-of-68-computers-would-be-greater-than-93.54-months-round-your-answer-to-4-decimal-places">10. The quality control manager at a computer manufacturing company believes that the mean life of a computer is 91 months, with a standard deviation of 10. If he is correct, what is the probability that the mean of a sample of 68 computers would be greater than 93.54 months? (Round your answer to 4 decimal places)</h4>
+<pre class="r"><code>mu &lt;- 91
+stdev &lt;- 10
+n &lt;- 68
+xbar &lt;- 93.54
+serr &lt;- sem(stdev, n)
+
+round(pnorm(xbar, mu, serr, lower.tail = F), 4) </code></pre>
 <pre><code>[1] 0.0181</code></pre>
 <h4 id="a-director-of-reservations-believes-that-7-of-the-ticketed-passengers-are-no-shows.-if-the-director-is-right-what-is-the-probability-that-the-proportion-of-no-shows-in-a-sample-of-540-ticketed-passengers-would-differ-from-the-population-proportion-by-less-than-3-round-your-answer-to-4-decimal-places">11. A director of reservations believes that 7% of the ticketed passengers are no-shows. If the director is right, what is the probability that the proportion of no-shows in a sample of 540 ticketed passengers would differ from the population proportion by less than 3%? (Round your answer to 4 decimal places)</h4>
+<pre class="r"><code>n &lt;- 540
+P &lt;- .07
+p1 &lt;- .04
+p2 &lt;- .10    
+serr &lt;- sqrt(P * (1 - P) / n)
+
+round(pnorm(p2, P, serr) - pnorm(p1, P, serr), 4)</code></pre>
 <pre><code>[1] 0.9937</code></pre>
 <h4 id="a-bottle-maker-believes-that-23-of-his-bottles-are-defective.-if-the-bottle-maker-is-accurate-what-is-the-probability-that-the-proportion-of-defective-bottles-in-a-sample-of-602-bottles-would-differ-from-the-population-proportion-by-greater-than-4-round-your-answer-to-4-decimal-places">12. A bottle maker believes that 23% of his bottles are defective. If the bottle maker is accurate, what is the probability that the proportion of defective bottles in a sample of 602 bottles would differ from the population proportion by greater than 4%? (Round your answer to 4 decimal places)</h4>
+<pre class="r"><code>n &lt;- 602
+P &lt;- .23
+p1 &lt;- P - .04
+p2 &lt;- P + .04  
+serr &lt;- sqrt(P * (1 - P) / n)
+
+round(pnorm(p1, P, serr) + pnorm(p2, P, serr, lower.tail = F), 4) </code></pre>
 <pre><code>[1] 0.0197</code></pre>
 <h4 id="a-research-company-desires-to-know-the-mean-consumption-of-beef-per-week-among-males-over-age-48.-suppose-a-sample-of-size-208-is-drawn-with-x-i-3.9.-assume-sigma-0.8-.-construct-the-80-confidence-interval-for-the-mean-number-of-lb.-of-beef-per-week-among-males-over-48.-round-your-answers-to-1-decimal-place">13. A research company desires to know the mean consumption of beef per week among males over age 48. Suppose a sample of size 208 is drawn with x Ì = 3.9. Assume sigma = 0.8 . Construct the 80% confidence interval for the mean number of lb. of beef per week among males over 48. (Round your answers to 1 decimal place)</h4>
+<pre class="r"><code>xbar &lt;- 3.9
+n &lt;- 208
+sdpop &lt;- .8
+ci &lt;- .8
+
+serr &lt;- sem(sdpop, n)
+zscore &lt;- qnorm(1 - (1 - ci)/2)
+
+error &lt;- zscore * serr
+lower_bound &lt;- round(xbar - error, 1)
+upper_bound &lt;- round(xbar + error, 1)
+cat(&quot;lower bound:&quot;, lower_bound,&quot;\nupper bound:&quot;, upper_bound)</code></pre>
 <pre><code>lower bound: 3.8 
 upper bound: 4</code></pre>
 <h4 id="an-economist-wants-to-estimate-the-mean-per-capita-income-in-thousands-of-dollars-in-a-major-city-in-california.-suppose-a-sample-of-size-7472-is-drawn-with-x-i-16.6.-assume-a-11-.-construct-the-98-confidence-interval-for-the-mean-per-capita-income.-round-your-answers-to-1-decimal-place">14. An economist wants to estimate the mean per capita income (in thousands of dollars) in a major city in California. Suppose a sample of size 7472 is drawn with x Ì = 16.6. Assume Â® = 11 . Construct the 98% confidence interval for the mean per capita income. (Round your answers to 1 decimal place)</h4>
+<pre class="r"><code>#Calculating Confidence Intervals w/ Z-scores
+#Inputs
+n &lt;- 7472
+xbar &lt;- 16.6
+sdpop &lt;- 11
+ci &lt;- .98
+dec_places &lt;- 1
+
+#Inital Calculations
+serr &lt;- sem(sdpop, n)
+zscore &lt;- qnorm(1 - (1 - ci)/2)
+error &lt;- zscore * serr
+
+#Final Calculations
+lower_bound &lt;- round(xbar - error, dec_places)
+upper_bound &lt;- round(xbar + error, dec_places)
+cat(&quot;lower bound:&quot;, lower_bound,&quot;\nupper bound:&quot;, upper_bound)</code></pre>
 <pre><code>lower bound: 16.3 
 upper bound: 16.9</code></pre>
 <h4 id="find-the-value-of-t-such-that-0.05-of-the-area-under-the-curve-is-to-the-left-of-t.-assume-the-degrees-of-freedom-equals-26.">15. Find the value of t such that 0.05 of the area under the curve is to the left of t. Assume the degrees of freedom equals 26.</h4>
@@ -172,6 +274,9 @@ upper bound: 16.9</code></pre>
 <li><p>Step 1. Choose the picture which best describes the problem. <strong>Answer: upper right</strong></p></li>
 <li><p>Step 2. Write your answer below.</p></li>
 </ul>
+<pre class="r"><code>df &lt;- 26
+p &lt;- .05
+round(qt(p, df), 4)</code></pre>
 <pre><code>[1] -1.7056</code></pre>
 <h4 id="the-following-measurements-in-picocuries-per-liter-were-recorded-by-a-set-of-helium-gas-detectors-installed-in-a-laboratory-facility">16. The following measurements ( in picocuries per liter ) were recorded by a set of helium gas detectors installed in a laboratory facility:</h4>
 <p>383.6, 347.1, 371.9, 347.6, 325.8, 337</p>
@@ -179,52 +284,163 @@ upper bound: 16.9</code></pre>
 <li><p>Using these measurements, construct a 90% confidence interval for the mean level of helium gas present in the facility. Assume the population is normally distributed.</p></li>
 <li><p>Step 1. Calculate the sample mean for the given sample data. (Round answer to 2 decimal places)</p></li>
 </ul>
+<pre class="r"><code>x &lt;- c(383.6, 347.1, 371.9, 347.6, 325.8, 337)
+n &lt;- length(x)
+df &lt;- n - 1
+ci &lt;- .9
+dec_places &lt;- 2
+
+xbar &lt;- round(mean(x), dec_places)
+xbar</code></pre>
 <pre><code>[1] 352.17</code></pre>
 <ul>
 <li>Step 2. Calculate the sample standard deviation for the given sample data. (Round answer to 2 decimal places)</li>
 </ul>
+<pre class="r"><code>s &lt;- round(sd(x), dec_places)
+s</code></pre>
 <pre><code>[1] 21.68</code></pre>
 <ul>
 <li>Step 3. Find the critical value that should be used in constructing the confidence interval. (Round answer to 3 decimal places)</li>
 </ul>
+<pre class="r"><code>dec_places &lt;- 3
+cv &lt;- round(qt(1 - (1 - ci)/2, df), dec_places)
+cv</code></pre>
 <pre><code>[1] 2.015</code></pre>
 <ul>
 <li>Step 4. Construct the 90% confidence interval. (Round answer to 2 decimal places)</li>
 </ul>
+<pre class="r"><code>serr &lt;- round(sem(s, n), dec_places)
+error &lt;- cv * serr
+dec_places &lt;- 2
+
+lower_bound &lt;- round(xbar - error, dec_places)
+upper_bound &lt;- round(xbar + error, dec_places)
+cat(&quot;lower bound:&quot;, lower_bound,&quot;\nupper bound:&quot;, upper_bound) </code></pre>
 <pre><code>lower bound: 334.34 
 upper bound: 370</code></pre>
 <h4 id="a-random-sample-of-16-fields-of-spring-wheat-has-a-mean-yield-of-46.4-bushels-per-acre-and-standard-deviation-of-2.45-bushels-per-acre.-determine-the-80-confidence-interval-for-the-true-mean-yield.-assume-the-population-is-normally-distributed.">17. A random sample of 16 fields of spring wheat has a mean yield of 46.4 bushels per acre and standard deviation of 2.45 bushels per acre. Determine the 80% confidence interval for the true mean yield. Assume the population is normally distributed.</h4>
 <ul>
 <li>Step 1. Find the critical value that should be used in constructing the confidence interval. (Round answer to 3 decimal places)</li>
 </ul>
+<pre class="r"><code>#Inputs
+n &lt;- 16
+xbar &lt;- 46.4
+sdpop &lt;- 2.45
+ci &lt;- .8
+df &lt;- n -1
+
+serr &lt;- sem(sdpop, n)
+zscore &lt;- round(qt(1 - (1 - ci)/2, df), 3)
+zscore</code></pre>
 <pre><code>[1] 1.341</code></pre>
 <ul>
 <li>Step 2. Construct the 80% confidence interval. (Round answer to 1 decimal place)</li>
 </ul>
+<pre class="r"><code>error &lt;- zscore * serr
+lower_bound &lt;- round(xbar - error, 1)
+upper_bound &lt;- round(xbar + error, 1)
+cat(&quot;lower bound:&quot;, lower_bound,&quot;\nupper bound:&quot;, upper_bound)</code></pre>
 <pre><code>lower bound: 45.6 
 upper bound: 47.2</code></pre>
 <h4 id="a-toy-manufacturer-wants-to-know-how-many-new-toys-children-buy-each-year.-she-thinks-the-mean-is-8-toys-per-year.-assume-a-previous-study-found-the-standard-deviation-to-be-1.9.-how-large-of-a-sample-would-be-required-in-order-to-estimate-the-mean-number-of-toys-bought-per-child-at-the-99-confidence-level-with-an-error-of-at-most-0.13-toys-round-your-answer-up-to-the-next-integer">18. A toy manufacturer wants to know how many new toys children buy each year. She thinks the mean is 8 toys per year. Assume a previous study found the standard deviation to be 1.9. How large of a sample would be required in order to estimate the mean number of toys bought per child at the 99% confidence level with an error of at most 0.13 toys? (Round your answer up to the next integer)</h4>
+<pre class="r"><code>#Givens
+mu &lt;- 8
+sdpop &lt;- 1.9
+ci &lt;- .99
+error &lt;- .13
+
+#Initial Calculations
+zscore &lt;- qnorm(1 - (1 - ci)/2)
+
+#Final Calculation
+n &lt;- ceiling((zscore * sdpop / error)^2)
+n</code></pre>
 <pre><code>[1] 1418</code></pre>
+<pre class="r"><code>#Validation
+# serr &lt;- sdpop/sqrt(n)
+# zscore &lt;- round(qnorm(1 - (1 - ci)/2), 3)
+# error &lt;- zscore * serr
+# 
+# #Error is less than .13
+# error &lt;= .13</code></pre>
 <h4 id="a-research-scientist-wants-to-know-how-many-times-per-hour-a-certain-strand-of-bacteria-reproduces.-he-believes-that-the-mean-is-12.6.-assume-the-variance-is-known-to-be-3.61.-how-large-of-a-sample-would-be-required-in-order-to-estimate-the-mean-number-of-reproductions-per-hour-at-the-95-confidence-level-with-an-error-of-at-most-0.19-reproductions-round-your-answer-up-to-the-next-integer">19. A research scientist wants to know how many times per hour a certain strand of bacteria reproduces. He believes that the mean is 12.6. Assume the variance is known to be 3.61. How large of a sample would be required in order to estimate the mean number of reproductions per hour at the 95% confidence level with an error of at most 0.19 reproductions? (Round your answer up to the next integer)</h4>
+<pre class="r"><code>#Givens
+mu &lt;- 12.6
+variance &lt;- 3.61
+sdpop &lt;- sqrt(variance)
+ci &lt;- .95
+error &lt;- .19
+
+#Initial Calculations
+zscore &lt;- qnorm(1 - (1 - ci)/2)
+
+#Final Calculation
+n &lt;- ceiling((zscore * sdpop / error)^2)
+n</code></pre>
 <pre><code>[1] 385</code></pre>
+<pre class="r"><code>#Validation
+# serr &lt;- sdpop/sqrt(n)
+# error_v &lt;- zscore * serr
+# error &gt;= error_v</code></pre>
 <h4 id="the-state-education-commission-wants-to-estimate-the-fraction-of-tenth-grade-students-that-have-reading-skills-at-or-below-the-eighth-grade-level.">20. The state education commission wants to estimate the fraction of tenth grade students that have reading skills at or below the eighth grade level.</h4>
 <ul>
 <li>Step 1. Suppose a sample of 2089 tenth graders is drawn. Of the students sampled, 1734 read above the eighth grade level. Using the data, estimate the proportion of tenth graders reading at or below the eighth grade level. (Write your answer as a fraction or a decimal number rounded to 3 decimal places)</li>
 </ul>
+<pre class="r"><code>#Givens
+n &lt;- 2089
+greaterthen8th &lt;- 1734
+dec_places &lt;- 3
+
+#Calculate p-hat
+phat &lt;- round((n - greaterthen8th)/n, dec_places)
+phat</code></pre>
 <pre><code>[1] 0.17</code></pre>
 <ul>
 <li>Step 2. Suppose a sample of 2089 tenth graders is drawn. Of the students sampled, 1734 read above the eighth grade level. Using the data, construct the 98% confidence interval for the population proportion of tenth graders reading at or below the eighth grade level. (Round your answers to 3 decimal places)</li>
 </ul>
+<pre class="r"><code>#Givens 
+ci &lt;- .98
+df &lt;- n - 1
+
+#Inital Calculations
+serr &lt;- sqrt(phat * (1 - phat) / n)
+tvalue &lt;- qt(1 - (1 - ci)/2, df)
+error &lt;- tvalue * serr
+
+#Final Calculations
+lower_bound &lt;- round(phat - error, dec_places)
+upper_bound &lt;- round(phat + error, dec_places)
+cat(&quot;lower bound:&quot;, lower_bound,&quot;\nupper bound:&quot;, upper_bound)</code></pre>
 <pre><code>lower bound: 0.151 
 upper bound: 0.189</code></pre>
 <h4 id="an-environmentalist-wants-to-find-out-the-fraction-of-oil-tankers-that-have-spills-each-month.">21. An environmentalist wants to find out the fraction of oil tankers that have spills each month.</h4>
 <ul>
 <li>Step 1. Suppose a sample of 474 tankers is drawn. Of these ships, 156 had spills. Using the data, estimate the proportion of oil tankers that had spills. (Write your answer as a fraction or a decimal number rounded to 3 decimal places)</li>
 </ul>
+<pre class="r"><code>#Givens
+n &lt;- 474
+spills &lt;- 156
+dec_places &lt;- 3
+
+#Calculate p-hat
+phat &lt;- round(spills/n, dec_places)
+phat</code></pre>
 <pre><code>[1] 0.329</code></pre>
 <ul>
 <li>Step 2. Suppose a sample of 474 tankers is drawn. Of these ships, 156 had spills. Using the data, construct the 95% confidence interval for the population proportion of oil tankers that have spills each month. (Round your answers to 3 decimal places)</li>
 </ul>
+<pre class="r"><code>ci &lt;- .95
+df &lt;- n - 1
+
+#Inital Calculations
+serr &lt;- sqrt(phat * (1 - phat) / n)
+tvalue &lt;- qt(1 - (1 - ci)/2, df)
+error &lt;- tvalue * serr
+
+#Final Calculations
+lower_bound &lt;- round(phat - error, dec_places)
+upper_bound &lt;- round(phat + error, dec_places)
+cat(&quot;lower bound:&quot;, lower_bound,&quot;\nupper bound:&quot;, upper_bound)</code></pre>
 <pre><code>lower bound: 0.287 
 upper bound: 0.371</code></pre>
 <h2 id="other-problems">Other Problems</h2>
