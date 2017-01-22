@@ -37,6 +37,7 @@ div.beige pre { background-color:beige; }
 ####1. 	The weights of steers in a herd are distributed normally.  The variance is 40,000 and the mean steer weight is 1300 lbs.  Find the probability that the weight of a randomly selected steer is greater than 979 lbs. (Round your answer to 4 decimal places)
 
 ```{r 1}
+#P(X>979 | mu = 1300, var = 40000)
 mu <- 1300
 variance <- 40000
 stdev <- sqrt(variance)
@@ -134,11 +135,6 @@ threshold <- 10
 P <- .09
 round(pbinom(threshold, n, P), 4)
 
-# n <- 540
-# P <- .07
-# p1 <- .04
-# p2 <- .10    
-# round(pnorm(p2, P, serr) - pnorm(p1, P, serr), 4)
 ```
 ####9. 	The mean lifetime of a tire is 48 months with a standard deviation of 7.  If 147 tires are sampled, what is the probability that the mean of the sample would be greater than 48.83 months? (Round your answer to 4 decimal places)
 ```{r 9}
@@ -168,10 +164,12 @@ round(pnorm(xbar, mu, serr, lower.tail = F), 4)
 
  
 ```{r 11}
+#P(.04 <X <.1 | P = .07)
 n <- 540
 P <- .07
-p1 <- .04
-p2 <- .10    
+diff_thres <- .03
+p1 <- P - diff_thres
+p2 <- P + diff_thres    
 serr <- sqrt(P * (1 - P) / n)
 
 round(pnorm(p2, P, serr) - pnorm(p1, P, serr), 4)
@@ -180,8 +178,9 @@ round(pnorm(p2, P, serr) - pnorm(p1, P, serr), 4)
 ```{r}
 n <- 602
 P <- .23
-p1 <- P - .04
-p2 <- P + .04  
+diff_thres <- .04
+p1 <- P - diff_thres
+p2 <- P + diff_thres  
 serr <- sqrt(P * (1 - P) / n)
 
 round(pnorm(p1, P, serr) + pnorm(p2, P, serr, lower.tail = F), 4) 
@@ -415,9 +414,9 @@ cat("lower bound:", lower_bound,"\nupper bound:", upper_bound)
 
 ![](https://raw.githubusercontent.com/kylegilde/cuny-winter-math/master/Problem1.png)
 
-+ What is the probability density function?  $$a*exp(-a*x)$$  
++ What is the probability density function?  $$ae^{-a*x}$$  
 + What is the expected value? $$1/a$$
-+ What is the variance? $$1/a^2 $$
++ What is the variance? $$1/a^2$$
 
 
 ####2)  The probability mass function for a particular random variable Y is
@@ -425,6 +424,5 @@ cat("lower bound:", lower_bound,"\nupper bound:", upper_bound)
 ![](https://raw.githubusercontent.com/kylegilde/cuny-winter-math/master/problem2.png)
 
 + Derive the mean: **b**
-+ Derive the standard deviation: **sqrt(b)**
-
++ Derive the standard deviation: $$\sqrt{b}$$
 </div>
