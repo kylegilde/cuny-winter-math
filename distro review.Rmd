@@ -1,0 +1,61 @@
+---
+title: "CUNY Math Bridge Class Notes"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Week 3
+
+exponential prob & uniform prob 
+```{r }
+#EXPONENTIAL distro
+#PDF
+x <- seq(0, 1, .01)
+y <- dexp(x, 4)
+plot(x, y, type = "l")
+#CDF
+y <- pexp(x, 4)
+plot(x, y, type = "l")
+
+
+
+#UNIFORM distro
+#PDF
+y <- dunif(x)
+plot(x, y)
+#CDF
+y <- punif(x)
+plot(x, y)
+
+
+#NORMAL distro
+#PDF
+x <- seq(-5, 5, .1)
+y <- dnorm(x)
+plot(x, y, type = "l")
+#CDF 
+y <- pnorm(x)
+plot(x, y, type = "l")
+
+#BINOM distro
+#PDF
+x <- seq(-10, 20, 1)
+y <- dbinom(x,10,.5)
+plot(x, y)
+#CDF 
+y <- pbinom(x,10,.5)
+plot(x, y)
+
+#POISSON
+x <- seq(0, 20, 1)
+y <- dpois(x,10)
+plot(x, y)
+#CDF 
+y <- ppois(x,10)
+
+plot(x, y)
+
+```

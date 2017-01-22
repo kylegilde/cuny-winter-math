@@ -192,12 +192,30 @@ threshold &lt;- .45
 round(qnorm(threshold, mu, stdev, lower.tail = F), 1) </code></pre>
 <pre><code>[1] 21.9</code></pre>
 <h4 id="consider-the-probability-that-less-than-11-out-of-151-students-will-not-graduate-on-time.-assume-the-probability-that-a-given-student-will-not-graduate-on-time-is-9.-approximate-the-probability-using-the-normal-distribution.-round-your-answer-to-4-decimal-places.">8. Consider the probability that less than 11 out of 151 students will not graduate on time. Assume the probability that a given student will not graduate on time is 9%. Approximate the probability using the normal distribution. (Round your answer to 4 decimal places.)</h4>
-<pre class="r"><code>successes &lt;- 10
-n &lt;- 151
+<pre class="r"><code>n &lt;- 151
+threshold &lt;- 11/n
 P &lt;- .09
+se_proportion &lt;- sqrt(P * (1 - P) / n)
+round(pnorm(threshold, P, se_proportion),4)</code></pre>
+<pre><code>[1] 0.2307</code></pre>
+<pre class="r"><code># n &lt;- 151
+# threshold &lt;- 11
+# P &lt;- .09
+# mu &lt;- 151 * P
+# stdev &lt;- ???
+# round(pnorm(threshold1, mu, stdev), 4)
 
-round(pbinom(successes, n, P),4)</code></pre>
+
+n &lt;- 151
+threshold &lt;- 10
+P &lt;- .09
+round(pbinom(threshold, n, P), 4)</code></pre>
 <pre><code>[1] 0.192</code></pre>
+<pre class="r"><code># n &lt;- 540
+# P &lt;- .07
+# p1 &lt;- .04
+# p2 &lt;- .10    
+# round(pnorm(p2, P, serr) - pnorm(p1, P, serr), 4)</code></pre>
 <h4 id="the-mean-lifetime-of-a-tire-is-48-months-with-a-standard-deviation-of-7.-if-147-tires-are-sampled-what-is-the-probability-that-the-mean-of-the-sample-would-be-greater-than-48.83-months-round-your-answer-to-4-decimal-places">9. The mean lifetime of a tire is 48 months with a standard deviation of 7. If 147 tires are sampled, what is the probability that the mean of the sample would be greater than 48.83 months? (Round your answer to 4 decimal places)</h4>
 <pre class="r"><code>mu &lt;- 48
 stdev &lt;- 7
