@@ -131,7 +131,8 @@ div.beige pre { background-color:beige; }
 </style>
 <div class="beige">
 <h4 id="the-weights-of-steers-in-a-herd-are-distributed-normally.-the-variance-is-40000-and-the-mean-steer-weight-is-1300-lbs.-find-the-probability-that-the-weight-of-a-randomly-selected-steer-is-greater-than-979-lbs.-round-your-answer-to-4-decimal-places">1. The weights of steers in a herd are distributed normally. The variance is 40,000 and the mean steer weight is 1300 lbs. Find the probability that the weight of a randomly selected steer is greater than 979 lbs. (Round your answer to 4 decimal places)</h4>
-<pre class="r"><code>mu &lt;- 1300
+<pre class="r"><code>#P(X&gt;979 | mu = 1300, var = 40000)
+mu &lt;- 1300
 variance &lt;- 40000
 stdev &lt;- sqrt(variance)
 threshold &lt;- 979
@@ -211,11 +212,6 @@ threshold &lt;- 10
 P &lt;- .09
 round(pbinom(threshold, n, P), 4)</code></pre>
 <pre><code>[1] 0.192</code></pre>
-<pre class="r"><code># n &lt;- 540
-# P &lt;- .07
-# p1 &lt;- .04
-# p2 &lt;- .10    
-# round(pnorm(p2, P, serr) - pnorm(p1, P, serr), 4)</code></pre>
 <h4 id="the-mean-lifetime-of-a-tire-is-48-months-with-a-standard-deviation-of-7.-if-147-tires-are-sampled-what-is-the-probability-that-the-mean-of-the-sample-would-be-greater-than-48.83-months-round-your-answer-to-4-decimal-places">9. The mean lifetime of a tire is 48 months with a standard deviation of 7. If 147 tires are sampled, what is the probability that the mean of the sample would be greater than 48.83 months? (Round your answer to 4 decimal places)</h4>
 <pre class="r"><code>mu &lt;- 48
 stdev &lt;- 7
@@ -235,10 +231,12 @@ serr &lt;- sem(stdev, n)
 round(pnorm(xbar, mu, serr, lower.tail = F), 4) </code></pre>
 <pre><code>[1] 0.0181</code></pre>
 <h4 id="a-director-of-reservations-believes-that-7-of-the-ticketed-passengers-are-no-shows.-if-the-director-is-right-what-is-the-probability-that-the-proportion-of-no-shows-in-a-sample-of-540-ticketed-passengers-would-differ-from-the-population-proportion-by-less-than-3-round-your-answer-to-4-decimal-places">11. A director of reservations believes that 7% of the ticketed passengers are no-shows. If the director is right, what is the probability that the proportion of no-shows in a sample of 540 ticketed passengers would differ from the population proportion by less than 3%? (Round your answer to 4 decimal places)</h4>
-<pre class="r"><code>n &lt;- 540
+<pre class="r"><code>#P(.04 &lt;X &lt;.1 | P = .07)
+n &lt;- 540
 P &lt;- .07
-p1 &lt;- .04
-p2 &lt;- .10    
+diff_thres &lt;- .03
+p1 &lt;- P - diff_thres
+p2 &lt;- P + diff_thres    
 serr &lt;- sqrt(P * (1 - P) / n)
 
 round(pnorm(p2, P, serr) - pnorm(p1, P, serr), 4)</code></pre>
@@ -246,8 +244,9 @@ round(pnorm(p2, P, serr) - pnorm(p1, P, serr), 4)</code></pre>
 <h4 id="a-bottle-maker-believes-that-23-of-his-bottles-are-defective.-if-the-bottle-maker-is-accurate-what-is-the-probability-that-the-proportion-of-defective-bottles-in-a-sample-of-602-bottles-would-differ-from-the-population-proportion-by-greater-than-4-round-your-answer-to-4-decimal-places">12. A bottle maker believes that 23% of his bottles are defective. If the bottle maker is accurate, what is the probability that the proportion of defective bottles in a sample of 602 bottles would differ from the population proportion by greater than 4%? (Round your answer to 4 decimal places)</h4>
 <pre class="r"><code>n &lt;- 602
 P &lt;- .23
-p1 &lt;- P - .04
-p2 &lt;- P + .04  
+diff_thres &lt;- .04
+p1 &lt;- P - diff_thres
+p2 &lt;- P + diff_thres  
 serr &lt;- sqrt(P * (1 - P) / n)
 
 round(pnorm(p1, P, serr) + pnorm(p2, P, serr, lower.tail = F), 4) </code></pre>
@@ -468,10 +467,10 @@ upper bound: 0.371</code></pre>
 
 </div>
 <ul>
-<li>What is the probability density function? <span class="math display">\[a*exp(-a*x)\]</span><br />
+<li>What is the probability density function? <span class="math display">\[ae^{-a*x}\]</span><br />
 </li>
 <li>What is the expected value? <span class="math display">\[1/a\]</span></li>
-<li>What is the variance? <span class="math display">\[1/a^2 \]</span></li>
+<li>What is the variance? <span class="math display">\[1/a^2\]</span></li>
 </ul>
 <h4 id="the-probability-mass-function-for-a-particular-random-variable-y-is">2) The probability mass function for a particular random variable Y is</h4>
 <div class="figure">
@@ -480,7 +479,7 @@ upper bound: 0.371</code></pre>
 </div>
 <ul>
 <li>Derive the mean: <strong>b</strong></li>
-<li>Derive the standard deviation: <strong>sqrt(b)</strong></li>
+<li>Derive the standard deviation: <span class="math display">\[\sqrt{b}\]</span></li>
 </ul>
 </div>
 </div>
